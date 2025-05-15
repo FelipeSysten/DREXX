@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drex - Moeda Digital do Banco Central do Brasil</title>
+    <meta name="description" content="Drex é a moeda digital oficial do Brasil, emitida pelo Banco Central. Segura, ágil e inovadora, conectando o Brasil ao futuro financeiro.">
+    <style>
+        :root {
+            --primary-color: #0059B3;
+            --secondary-color: #00A86B;
+            --tertiary-color: #003366;
+            --light-color: #F5F8FF;
+            --dark-color: #222;
+            --gray-color: #f0f0f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #fff;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--tertiary-color));
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            background-color: var(--secondary-color);
+            height: 3px;
+            width: 0;
+            left: 0;
+            bottom: -5px;
+            transition: 0.3s;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 51, 102, 0.8), rgba(0, 51, 102, 0.9)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn:hover {
+            background-color: #008954;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            margin-left: 1rem;
+        }
+        
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--primary-color);
+        }
+        
+        section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--tertiary-color);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .section-title p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .section-title::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .about {
+            background-color: var(--light-color);
+        }
+        
+        .features {
+            background-color: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: var(--light-color);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--tertiary-color);
+        }
+        
+        .public {
+            background-color: var(--light-color);
+        }
+        
+        .public-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .public-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .public-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .public-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .public-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--tertiary-color);
+        }
+        
+        .innovation {
+            background-color: white;
+        }
+        
+        .innovation-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .innovation-image {
+            flex: 1;
+            min-width: 300px;
+            padding: 2rem;
+        }
+        
+        .innovation-content {
+            flex: 1;
+            min-width: 300px;
+            padding: 2rem;
+        }
+        
+        .innovation-points {
+            margin-top: 2rem;
+        }
+        
+        .innovation-point {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        
+        .point-icon {
+            margin-right: 1rem;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+        }
+        
+        .point-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--tertiary-color);
+        }
+        
+        .faq {
+            background-color: var(--light-color);
+            padding-bottom: 6rem;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background-color: white;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--tertiary-color);
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .cta {
+            background: linear-gradient(135deg, var(--primary-color), var(--tertiary-color));
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        footer {
+            background-color: var(--tertiary-color);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: #CCC;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #AAA;
+        }
+        
+        .social-links {
+            margin-bottom: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .menu-toggle {
+                display: block;
+                font-size: 1.5rem;
+                color: white;
+                cursor: pointer;
+            }
+            
+            .btn {
+                display: block;
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+            }
+            
+            .innovation-container {
+                flex-direction: column;
+            }
+            
+            .feature-card, .public-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <div class="logo-icon"><i class="fas fa-coin"></i></div>
+                    <span>DREX</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#features">Características</a></li>
+                    <li><a href="#public">Público-Alvo</a></li>
+                    <li><a href="#innovation">Inovação</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>DREX: O Futuro Financeiro do Brasil</h1>
+                <p>A moeda digital oficial do Banco Central do Brasil. Segura, ágil e inovadora - conectando o Brasil ao futuro das finanças digitais.</p>
+                <div class="hero-buttons">
+                    <a href="#about" class="btn">Conheça o DREX</a>
+                    <a href="#innovation" class="btn btn-outline">Ver Inovações</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sobre o DREX</h2>
+                <p>A moeda digital oficial do Banco Central do Brasil, desenvolvida para modernizar o sistema financeiro nacional.</p>
+            </div>
+            <div class="about-content">
+                <p>O DREX é a Moeda Digital do Banco Central do Brasil (CBDC - Central Bank Digital Currency), representando a evolução do Real para a era digital. Diferente das criptomoedas privadas, o DREX é emitido e garantido pelo Estado brasileiro, trazendo a segurança da moeda oficial com os benefícios da tecnologia blockchain.</p>
+                <p>Com o DREX, o Brasil se posiciona na vanguarda da inovação financeira global, criando uma infraestrutura que permitirá transações mais rápidas, seguras e com menor custo para cidadãos e empresas, além de expandir as possibilidades de serviços financeiros programáveis.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Características Principais</h2>
+                <p>Conheça os diferenciais da moeda digital que está revolucionando o sistema financeiro brasileiro.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Segurança Garantida</h3>
+                    <p>Tecnologia blockchain com respaldo do Banco Central, oferecendo segurança máxima para suas transações financeiras e dados pessoais.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Transações Instantâneas</h3>
+                    <p>Pagamentos e transferências em tempo real, 24 horas por dia, 7 dias por semana, com confirmação imediata e sem intermediários.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Contratos Inteligentes</h3>
+                    <p>Suporte a contratos programáveis que executam automaticamente quando condições pré-definidas são atendidas, abrindo novas possibilidades para negócios.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Integração Completa</h3>
+                    <p>Compatibilidade com o sistema financeiro atual, incluindo PIX e outros meios de pagamento, facilitando a transição e adoção.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Inclusão Financeira</h3>
+                    <p>Acesso a serviços financeiros para todos os brasileiros, incluindo os desbancarizados, promovendo cidadania financeira e desenvolvimento socioeconômico.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search-dollar"></i>
+                    </div>
+                    <h3>Transparência Total</h3>
+                    <p>Rastreabilidade das transações com registro imutável, permitindo maior controle e combate a fraudes e lavagem de dinheiro.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Public Section -->
+    <section id="public" class="public">
+        <div class="container">
+            <div class="section-title">
+                <h2>Para Quem é o DREX</h2>
+                <p>Uma solução financeira digital para todos os segmentos da sociedade brasileira.</p>
+            </div>
+            <div class="public-grid">
+                <div class="public-card">
+                    <div class="public-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Cidadãos</h3>
+                    <p>Transações mais rápidas, seguras e com menor custo. Acesso simplificado a serviços financeiros e maior controle sobre seu dinheiro.</p>
+                </div>
+                <div class="public-card">
+                    <div class="public-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3>Empresas</h3>
+                    <p>Redução de custos operacionais, maior eficiência em pagamentos e recebimentos, e novas possibilidades de negócios com contratos inteligentes.</p>
+                </div>
+                <div class="public-card">
+                    <div class="public-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3>Instituições Financeiras</h3>
+                    <p>Infraestrutura moderna para desenvolver novos produtos e serviços, reduzindo custos de compliance e aumentando eficiência operacional.</p>
+                </div>
+                <div class="public-card">
+                    <div class="public-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Desenvolvedores</h3>
+                    <p>Plataforma aberta para inovar com aplicações financeiras, criando soluções que aproveitam os recursos do DREX e atendem às necessidades do mercado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Innovation Section -->
+    <section id="innovation" class="innovation">
+        <div class="container">
+            <div class="section-title">
+                <h2>Inovação Financeira</h2>
+                <p>O DREX traz um novo paradigma para o sistema financeiro brasileiro.</p>
+            </div>
+            <div class="innovation-container">
+                <div class="innovation-image">
+                    <img src="/api/placeholder/500/400" alt="Inovação DREX" width="100%">
+                </div>
+                <div class="innovation-content">
+                    <h3>Transformando o Cenário Financeiro</h3>
+                    <p>O DREX representa uma evolução significativa na infraestrutura financeira do Brasil, combinando a confiabilidade da moeda oficial com os benefícios da tecnologia blockchain.</p>
+                    <div class="innovation-points">
+                        <div class="innovation-point">
+                            <div class="point-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="point-content">
+                                <h4>Pagamentos Programáveis</h4>
+                                <p>Automação de pagamentos baseados em condições pré-definidas, como desembolsos periódicos ou condicionados a entregas.</p>
+                            </div>
+                        </div>
+                        <div class="innovation-point">
+                            <div class="point-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="point-content">
+                                <h4>Tokenização de Ativos</h4>
+                                <p>Representação digital de ativos físicos ou financeiros, facilitando sua negociação e transferência com segurança e eficiência.</p>
+                            </div>
+                        </div>
+                        <div class="innovation-point">
+                            <div class="point-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="point-content">
+                                <h4>Interoperabilidade Global</h4>
+                                <p>Potencial para integração com outras CBDCs internacionais, facilitando transações transfronteiriças e comércio internacional.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>Perguntas Frequentes</h2>
+                <p>Esclareça suas dúvidas sobre o DREX.</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        O que é exatamente o DREX?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>O DREX é a Moeda Digital do Banco Central do Brasil (CBDC), uma versão digital do Real brasileiro que utiliza tecnologia blockchain para oferecer transações mais rápidas, seguras e com menor custo, além de possibilitar contratos inteligentes e serviços financeiros programáveis.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Como o DREX difere de criptomoedas como Bitcoin?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Diferente de criptomoedas privadas, o DREX é emitido e garantido pelo Banco Central do Brasil, tendo o mesmo valor e estabilidade do Real físico. Ele não está sujeito à volatilidade característica de criptomoedas e possui respaldo legal como moeda oficial.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Quando o DREX estará disponível para uso?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>O Banco Central do Brasil está conduzindo testes e pilotos para garantir a segurança e eficiência do sistema. O lançamento oficial ocorrerá após a conclusão bem-sucedida dessas fases, com implementação gradual para diferentes segmentos do mercado.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Como farei para usar o DREX?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>O DREX será acessível através de instituições financeiras autorizadas pelo Banco Central, incluindo bancos, fintechs e cooperativas. Você poderá utilizar aplicativos e plataformas digitais dessas instituições para gerenciar e usar sua carteira de DREX.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        O DREX substituirá o dinheiro físico e o PIX?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Não. O DREX coexistirá com o dinheiro físico e meios de pagamento eletrônicos como o PIX, expandindo as opções disponíveis para os cidadãos. A intenção é complementar o ecossistema financeiro, não substituir os meios atuais.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Prepare-se para o Futuro Financeiro</h2>
+                <p>Fique por dentro das novidades e atualizações sobre o DREX.</p>
+                <a href="#" class="btn">Saiba Mais</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>DREX</h3>
+                    <p>A moeda digital oficial do Banco Central do Brasil. Segura, ágil e inovadora.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="#about">Sobre o DREX</a></li>
+                        <li><a href="#features">Características</a></li>
+                        <li><a href="#public">Público-Alvo</a></li>
+                        <li><a href="#innovation">Inovação</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Informações Legais</h3>
+                    <ul>
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">Política de Cookies</a></li>
+                        <li><a href="#">Regulamentação</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> contato@drex.gov.br</li>
+                        <li><i class="fas fa-phone"></i> 0800-XXX-XXXX</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Brasília, DF - Brasil</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 DREX - Banco Central do Brasil. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script to toggle FAQ answers
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i');
+                
+                // Toggle answer visibility
+                if (answer.style.display === 'block') {
+                    answer.style.display = 
